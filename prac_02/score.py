@@ -7,6 +7,7 @@ PASSABLE_SCORE = 90
 
 
 def main():
+    """The main function for control flow, then get a random score and execute get_feedback"""
     score = float(input("Enter score: "))
     while score < LOWEST_SCORE or score > HIGHEST_SCORE:
         print("Invalid score")
@@ -20,6 +21,7 @@ def main():
 
 
 def get_feedback(score):
+    """Determine the output based on the score"""
     if score < BAD_SCORE:
         return "Bad"
     if score < PASSABLE_SCORE:
