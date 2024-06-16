@@ -27,8 +27,20 @@ def load_data():
 
 def display_information(data):
     """Control elements are nested in sentences for output"""
-    for i in range(len(data)):
-        print(f"{data[i][0]:<6} is taught by {data[i][1]:<12} and has {data[i][2]:>3} students")
+    length_of_class_name = 0
+    length_of_lord_name = 0
+    length_of_student_number = 0
+    for x in data:
+        if len(x[0]) > length_of_class_name:
+            length_of_class_name = len(x[0])
+        if len(x[1]) > length_of_lord_name:
+            length_of_lord_name = len(x[1])
+        if len(str(x[2])) > length_of_student_number:
+            length_of_student_number = len(str(x[2]))
+
+    for y in range(len(data)):
+        print(f"{data[y][0]:<{length_of_class_name}} is taught by {data[y][1]:<{length_of_lord_name}} and has "
+              f"{data[y][2]:>{length_of_student_number}} students")
 
 
 main()
