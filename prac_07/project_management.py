@@ -37,7 +37,7 @@ def main():
         else:
             print("Invalid Menu Choice")
         user_choice = input(MENU).upper()
-    user_input = input(f"Would you like to save to {file_name}?").upper()
+    user_input = input(f"Would you like to save to {FILENAME}?").upper()
     if user_input == "Y" or user_input == "YES":
         save_data_to_file(projects_information, FILENAME)
     print("Thank you for using custom-built project management software.")
@@ -51,6 +51,7 @@ def read_file(file_name):
         for line in on_file:
             parts = line.strip().split('\t')
             projects_information.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
+        projects_information.sort()
     print(f"Loaded {len(projects_information)} projects from {file_name}")
     return projects_information
 
@@ -66,6 +67,7 @@ def load_project():
 
 
 def save_data_to_new_file(projects_information):
+    """Select the file to save"""
     file_name = input("Please enter where you want save")
     if not file_name.endswith(".txt"):
         file_name += ".txt"
@@ -74,7 +76,7 @@ def save_data_to_new_file(projects_information):
 
 
 def save_data_to_file(projects_information, file_name):
-
+    """Save data from the selected file"""
     with open(file_name, "w") as on_file:
         print("Name	Start Date	Priority	Cost Estimate	Completion Percentage", file=on_file)
         for line in projects_information:
@@ -83,6 +85,19 @@ def save_data_to_file(projects_information, file_name):
                   f"{line.priority}\t"
                   f"{line.cost_estimate}\t"
                   f"{line.completion_percentage}", file=on_file)
+
+
+def display_projects(projects_information):
+    """Show completed and uncompleted items separately"""
+    print("Incomplete projects:")
+    incomplete_projects = [line for line in projects_information if not line.is_complete()]
+    for line in incomplete_projects:
+        print(f"\t{line}")
+    print("Completed projects:")
+    completed_projects = [line for line in projects_information if line.is_complete()]
+    for line in completed_projects:
+        print(f"\t{line}")
+
 
 
 
