@@ -1,10 +1,6 @@
 from prac_07.project import Project
 import datetime
 
-# date_string = input("Date (d/m/yyyy): ")  # e.g., "30/9/2022"
-# date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
-# print(f"That day is/was {date.strftime('%A')}")
-# print(date.strftime("%d/%m/%Y"))
 FILENAME = "projects.txt"
 MENU = ("- (L)oad projects\n"
         "- (S)ave projects\n"
@@ -88,8 +84,7 @@ def save_data_to_file(projects_information, file_name):
 
 def display_projects(projects_information):
     """Show completed and uncompleted items separately"""
-    display_information = projects_information
-    display_information.sort()
+    display_information = sorted(projects_information)
     print("Incomplete projects:")
     incomplete_projects = [line for line in display_information if not line.is_complete()]
     for line in incomplete_projects:
@@ -125,6 +120,17 @@ def add_project(projects_information):
     projects_information.append(Project(name, day, priority, cost, percent_complete))
     display_projects(projects_information)
 
+
+def filter_projects(projects_information):
+    """Output the project after the selected date"""
+    display_information = sorted(projects_information)
+    date_string = input("Show projects that start after date (dd/mm/yy): ")
+    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    display_information.sort()
+    for line in display_information:
+        project_start_date = datetime.datetime.strptime(line.start_date, "%d/%m/%Y").date()
+        if project_start_date >= date:
+            print(line)
 
 
 main()
