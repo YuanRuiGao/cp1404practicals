@@ -100,10 +100,12 @@ def update_project(projects_information):
         project_number += 1
     choice = int(input("Project choice: "))
     print(projects_information[choice])
-    new_percentage = int(input("New Percentage: "))
+    new_percentage = get_valid_percentage("New Percentage: ")
     projects_information[choice].completion_percentage = new_percentage
-    new_priority = int(input("New Priority:"))
-    projects_information[choice].priority = new_priority
+
+    new_priority = add_new_value("New Priority:")
+    if new_priority != "":
+        projects_information[choice].priority = new_priority
 
 
 def add_project(projects_information):
@@ -111,9 +113,9 @@ def add_project(projects_information):
     print("Let's add a new project")
     name = input("Name: ")
     day = input("Start date (dd/mm/yy): ")
-    priority = int(input("Priority: "))
-    cost = float(input("Cost estimate: "))
-    percent_complete = int(input("Percent complete: "))
+    priority = int(get_valid_number("Priority: "))
+    cost = float(get_valid_number("Cost estimate: "))
+    percent_complete = int(get_valid_percentage("Percent complete: "))
     projects_information.append(Project(name, day, priority, cost, percent_complete))
     display_projects(projects_information)
 
@@ -136,6 +138,43 @@ def user_selection(projects_information):
         save_data_to_file(projects_information, FILENAME)
     print("Thank you for using custom-built project management software.")
 
+
+def get_valid_number(prompt):
+    effect_number = False
+    value = float(input(prompt))
+    while not effect_number:
+        try:
+            if value <= 0:
+                print("number should > 0")
+            else:
+                effect_number = True
+        except ValueError:
+            print("Please enter a valid number")
+    return value
+
+
+def get_valid_percentage(prompt):
+    value = get_valid_number(prompt)
+    while value > 100:
+        print("Percentage can not > 100")
+        value = get_valid_number(prompt)
+    return value
+
+
+def add_new_value(prompt):
+    effect_number = False
+    value = input(prompt)
+    if value == "":
+        return ""
+    while not effect_number:
+        try:
+            if int(value) <= 0:
+                print("number should > 0")
+            else:
+                effect_number = True
+        except ValueError:
+            print("Please enter a valid number")
+    return value
 
 
 main()
