@@ -4,8 +4,10 @@ from prac_07.guitar import Guitar
 def main():
     """Control program operation"""
     guitars = read_file()
-    user_input(guitars)
     display_guitars(guitars)
+    guitars.sort()
+    display_guitars(guitars)
+    user_input(guitars)
     save_into_file(guitars)
 
 
@@ -31,9 +33,9 @@ def user_input(guitars):
 
 def display_guitars(guitars):
     """Display all sorted guitar data"""
-    guitars.sort()
     for i in guitars:
         print(i.name, i.year, i.cost)
+    print()
 
 
 def save_into_file(guitars):
