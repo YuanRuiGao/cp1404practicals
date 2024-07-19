@@ -33,10 +33,7 @@ def main():
         else:
             print("Invalid Menu Choice")
         user_choice = input(MENU).upper()
-    user_input = input(f"Would you like to save to {FILENAME}?").upper()
-    if user_input == "Y" or user_input == "YES":
-        save_data_to_file(projects_information, FILENAME)
-    print("Thank you for using custom-built project management software.")
+    user_selection(projects_information)
 
 
 def read_file(file_name):
@@ -131,6 +128,14 @@ def filter_projects(projects_information):
         project_start_date = datetime.datetime.strptime(line.start_date, "%d/%m/%Y").date()
         if project_start_date >= date:
             print(line)
+
+
+def user_selection(projects_information):
+    user_input = input(f"Would you like to save to {FILENAME}?").upper()
+    if user_input == "Y" or user_input == "YES":
+        save_data_to_file(projects_information, FILENAME)
+    print("Thank you for using custom-built project management software.")
+
 
 
 main()
