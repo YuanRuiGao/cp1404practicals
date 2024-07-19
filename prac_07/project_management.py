@@ -51,7 +51,6 @@ def read_file(file_name):
         for line in on_file:
             parts = line.strip().split('\t')
             projects_information.append(Project(parts[0], parts[1], int(parts[2]), float(parts[3]), int(parts[4])))
-        projects_information.sort()
     print(f"Loaded {len(projects_information)} projects from {file_name}")
     return projects_information
 
@@ -89,14 +88,35 @@ def save_data_to_file(projects_information, file_name):
 
 def display_projects(projects_information):
     """Show completed and uncompleted items separately"""
+    display_information = projects_information
+    display_information.sort()
     print("Incomplete projects:")
-    incomplete_projects = [line for line in projects_information if not line.is_complete()]
+    incomplete_projects = [line for line in display_information if not line.is_complete()]
     for line in incomplete_projects:
         print(f"\t{line}")
     print("Completed projects:")
-    completed_projects = [line for line in projects_information if line.is_complete()]
+    completed_projects = [line for line in display_information if line.is_complete()]
     for line in completed_projects:
         print(f"\t{line}")
+
+
+def update_project(projects_information):
+    """Update input data"""
+    project_number = 0
+    for line in projects_information:
+        print(f"{project_number} {line}")
+        project_number += 1
+    choice = int(input("Project choice: "))
+    print(projects_information[choice])
+    new_percentage = int(input("New Percentage: "))
+    projects_information[choice].completion_percentage = new_percentage
+    new_priority = int(input("New Priority:"))
+    projects_information[choice].priority = new_priority
+
+
+
+
+
 
 
 
