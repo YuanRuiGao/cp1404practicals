@@ -110,10 +110,10 @@ def update_project(projects_information):
 def add_project(projects_information):
     """Add a new project"""
     print("Let's add a new project")
-    name = input("Name: ")
-    day = input("Start date (dd/mm/yy): ")
+    name = get_valid_string("Name: ")
+    day = get_valid_string("Start date (dd/mm/yy): ")
     priority = int(get_valid_number("Priority: "))
-    cost = float(get_valid_number("Cost estimate: "))
+    cost = get_valid_number("Cost estimate: ")
     percent_complete = int(get_valid_percentage("Percent complete: "))
     projects_information.append(Project(name, day, priority, cost, percent_complete))
     display_projects(projects_information)
@@ -143,6 +143,14 @@ def user_selection(projects_information):
     if user_input == "Y" or user_input == "YES":
         save_data_to_file(projects_information, FILENAME)
     print("Thank you for using custom-built project management software.")
+
+
+def get_valid_string(prompt):
+    value = input(prompt)
+    while value == "":
+        print(f"{prompt} can not be blank")
+        value = input(prompt)
+    return value
 
 
 def get_valid_number(prompt):
