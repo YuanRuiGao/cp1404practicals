@@ -20,9 +20,6 @@ class Project:
         """Compare by priority"""
         return self.priority < other.priority
 
-    def __le__(self, other):
-        return self.start_date <= other.start_date
-
     def is_complete(self):
         """Determine whether it is completed"""
         return self.completion_percentage == 100

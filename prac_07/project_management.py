@@ -102,7 +102,6 @@ def update_project(projects_information):
     print(projects_information[choice])
     new_percentage = get_valid_percentage("New Percentage: ")
     projects_information[choice].completion_percentage = new_percentage
-
     new_priority = add_new_value("New Priority:")
     if new_priority != "":
         projects_information[choice].priority = new_priority
@@ -123,9 +122,16 @@ def add_project(projects_information):
 def filter_projects(projects_information):
     """Output the project after the selected date"""
     display_information = sorted(projects_information)
-    date_string = input("Show projects that start after date (dd/mm/yy): ")
-    date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
-    display_information.sort()
+    date = 0
+    get_valid_date = False
+    while not get_valid_date:
+        try:
+            date_string = input("Show projects that start after date (dd/mm/yy): ")
+            date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            get_valid_date = True
+        except ValueError:
+            print("Please enter a  valid date")
+
     for line in display_information:
         project_start_date = datetime.datetime.strptime(line.start_date, "%d/%m/%Y").date()
         if project_start_date >= date:
