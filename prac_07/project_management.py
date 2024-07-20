@@ -98,7 +98,7 @@ def update_project(projects_information):
     for line in projects_information:
         print(f"{project_number} {line}")
         project_number += 1
-    choice = int(input("Project choice: "))
+    choice = int(get_valid_project_number("Project choice: ", projects_information))
     print(projects_information[choice])
     new_percentage = get_valid_percentage("New Percentage: ")
     projects_information[choice].completion_percentage = new_percentage
@@ -145,6 +145,14 @@ def user_selection(projects_information):
     print("Thank you for using custom-built project management software.")
 
 
+def get_valid_project_number(prompt, projects_information):
+    value = get_valid_number(prompt)
+    while value >= len(projects_information):
+        print("please enter a valid choice")
+        value = get_valid_number(prompt)
+    return value
+
+
 def get_valid_string(prompt):
     value = input(prompt)
     while value == "":
@@ -155,16 +163,15 @@ def get_valid_string(prompt):
 
 def get_valid_number(prompt):
     effect_number = False
-    value = float(input(prompt))
     while not effect_number:
         try:
-            if value <= 0:
+            value = float(input(prompt))
+            if value < 0:
                 print("number should > 0")
             else:
-                effect_number = True
+                return value
         except ValueError:
             print("Please enter a valid number")
-    return value
 
 
 def get_valid_percentage(prompt):
