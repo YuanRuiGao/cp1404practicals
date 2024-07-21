@@ -1,3 +1,6 @@
+MAXIMUM_PERCENTAGE = 100
+
+
 class Project:
 
     def __init__(self, name="", start_date="", priority=0, cost_estimate=0, completion_percentage=0):
@@ -22,4 +25,4 @@ class Project:
 
     def is_complete(self):
         """Determine whether it is completed"""
-        return self.completion_percentage == 100
+        return self.completion_percentage == MAXIMUM_PERCENTAGE
