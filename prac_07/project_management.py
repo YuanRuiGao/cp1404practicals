@@ -10,6 +10,8 @@ MENU = ("- (L)oad projects\n"
         "- (U)pdate project\n"
         "- (Q)uit\n"
         ">>> ")
+MINIUM_NUMBER = 0
+MAXIMUM_PERCENTAGE = 100
 
 
 def main():
@@ -166,7 +168,7 @@ def get_valid_number(prompt):
     while not effect_number:
         try:
             value = float(input(prompt))
-            if value < 0:
+            if value < MINIUM_NUMBER:
                 print("number should > 0")
             else:
                 return value
@@ -176,7 +178,7 @@ def get_valid_number(prompt):
 
 def get_valid_percentage(prompt):
     value = get_valid_number(prompt)
-    while value > 100:
+    while value > MAXIMUM_PERCENTAGE:
         print("Percentage can not > 100")
         value = get_valid_number(prompt)
     return value
@@ -189,7 +191,7 @@ def add_new_value(prompt):
         return ""
     while not effect_number:
         try:
-            if int(value) <= 0:
+            if int(value) <= MINIUM_NUMBER:
                 print("number should > 0")
             else:
                 effect_number = True

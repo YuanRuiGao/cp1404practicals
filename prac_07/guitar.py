@@ -1,4 +1,5 @@
 THIS_YEAR = 2022
+Will_Age = 50
 
 
 class Guitar:
@@ -15,7 +16,7 @@ class Guitar:
         return THIS_YEAR - self.year
 
     def is_vintage(self):
-        return self.get_age() >= 50
+        return self.get_age() >= Will_Age
 
     def __lt__(self, other):
         return self.year <= other.year
