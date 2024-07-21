@@ -1,7 +1,7 @@
 from prac_07.project import Project
 import datetime
 
-FILENAME = "projects.txt"
+DEFAULT_FILE = "projects.txt"
 MENU = ("- (L)oad projects\n"
         "- (S)ave projects\n"
         "- (D)isplay projects\n"
@@ -17,7 +17,7 @@ MAXIMUM_PERCENTAGE = 100
 def main():
     """Control program execution"""
     print("Welcome to Pythonic Project Management")
-    projects_information = read_file(FILENAME)
+    projects_information = read_file(DEFAULT_FILE)
     user_choice = input(MENU).upper()
     while user_choice != "Q":
         if user_choice == "L":
@@ -56,8 +56,8 @@ def load_project():
     try:
         read_file(file_name)
     except FileNotFoundError:
-        print(f"Name Error, system will using the default file: {FILENAME}")
-        read_file(FILENAME)
+        print(f"Name Error, system will using the default file: {DEFAULT_FILE}")
+        read_file(DEFAULT_FILE)
 
 
 def save_data_to_new_file(projects_information):
@@ -65,7 +65,7 @@ def save_data_to_new_file(projects_information):
     file_name = input("Please enter where you want save")
     if not file_name.endswith(".txt"):
         file_name += ".txt"
-    print(file_name)
+    print(f"Save into {file_name} success")
     save_data_to_file(projects_information, file_name)
 
 
@@ -113,7 +113,15 @@ def add_project(projects_information):
     """Add a new project"""
     print("Let's add a new project")
     name = get_valid_string("Name: ")
-    day = get_valid_string("Start date (dd/mm/yy): ")
+    day = 0
+    valid_daytime = False
+    while not valid_daytime:
+        try:
+            day = input("Start date (dd/mm/yy): ")
+            datetime.datetime.strptime(day, "%d/%m/%Y").date()
+            valid_daytime = True
+        except ValueError:
+            print("please enter a  valid day")
     priority = int(get_valid_number("Priority: "))
     cost = get_valid_number("Cost estimate: ")
     percent_complete = int(get_valid_percentage("Percent complete: "))
@@ -141,9 +149,9 @@ def filter_projects(projects_information):
 
 
 def user_selection(projects_information):
-    user_input = input(f"Would you like to save to {FILENAME}?").upper()
+    user_input = input(f"Would you like to save to {DEFAULT_FILE}?").upper()
     if user_input == "Y" or user_input == "YES":
-        save_data_to_file(projects_information, FILENAME)
+        save_data_to_file(projects_information, DEFAULT_FILE)
     print("Thank you for using custom-built project management software.")
 
 
