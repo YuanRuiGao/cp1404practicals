@@ -18,5 +18,3 @@ class SilverServiceTaxi(Taxi):
     def get_fare(self):
         """Return the added flagfall"""
         return super().get_fare() + self.flagfall
-
-
